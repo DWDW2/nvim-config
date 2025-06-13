@@ -1,9 +1,11 @@
 local lsp_zero = require('lsp-zero')
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
 
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = { 'lua_ls', 'rust_analyzer', 'tsserver', 'python3', 'golang', 'eslint'} 
+  ensure_installed = { 'lua_ls', 'rust_analyzer', 'ts_ls', 'python3', 'golang'},
+  automatic_installation = true, 
 })
 
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
@@ -25,6 +27,18 @@ lspconfig.rust_analyzer.setup {
   capabilities = capabilities,
 }
 
+
+
+lspconfig.ts_ls.setup({
+  on_attach = function(client, bufnr)
+    lsp.default_keymaps({buffer = bufnr})
+
+    client.server_capabilities.documentFormattingProvider = true
+  end,
+  filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "typescript.tsx" },
+})
+
+
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
@@ -35,13 +49,37 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
-	
-
-
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = 'select' }),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
   }),
-  sources = {
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-  },
+    { name = 'luasnip' },
+  }, {
+    { name = 'buffer' },
+    { name = 'path' },
+  }),
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
