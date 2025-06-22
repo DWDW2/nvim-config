@@ -1,10 +1,11 @@
 local lsp_zero = require('lsp-zero')
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
-
 require('mason').setup()
+
+
 require('mason-lspconfig').setup({
-  ensure_installed = { 'lua_ls', 'rust_analyzer', 'ts_ls', 'python3', 'golang'},
+  ensure_installed = { 'lua_ls', 'rust_analyzer', 'ts_ls', 'python3'},   
   automatic_installation = true, 
 })
 
@@ -35,7 +36,7 @@ lspconfig.ts_ls.setup({
 
     client.server_capabilities.documentFormattingProvider = true
   end,
-  filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "typescript.tsx" },
+  filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "typescript.tsx", "tsx"},
 })
 
 
@@ -83,19 +84,20 @@ cmp.setup({
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions',
-  callback = function(event)
-    local opts = { buffer = event.buf }
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
-    vim.keymap.set({'n', 'x'}, '<F3>', function() vim.lsp.buf.format({ async = true }) end, opts)
-    vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, opts)
-  end,
+	desc = 'LSP actions',
+	callback = function(event)
+		local opts = { buffer = event.buf }
+		vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+		vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
+		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+		vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
+		vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts)
+		vim.keymap.set({'n', 'x'}, '<F3>', function() vim.lsp.buf.format({ async = true }) end, opts)
+		vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, opts)
+		
+	end,
 })
 
