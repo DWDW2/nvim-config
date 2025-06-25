@@ -17,22 +17,12 @@ return require('packer').startup(function(use)
 		require("toggleterm").setup()
 	end}
 
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		requires = {
-			{'neovim/nvim-lspconfig'},
-			{'williamboman/mason.nvim'},
-			{'williamboman/mason-lspconfig.nvim'},
-			{'hrsh7th/nvim-cmp'},
-			{'hrsh7th/cmp-buffer'},
-			{'hrsh7th/cmp-path'},
-			{'saadparwaiz1/cmp_luasnip'},
-			{'hrsh7th/cmp-nvim-lsp'},
-			{'hrsh7th/cmp-nvim-lua'},
-			{'L3MON4D3/LuaSnip'},
-			{'rafamadriz/friendly-snippets'},
-		}
-	}
+	use ('neovim/nvim-lspconfig')  
+	use ('hrsh7th/nvim-cmp') 
+	use ('hrsh7th/cmp-nvim-lsp') 
+	use ('williamboman/mason.nvim')
+	use ('williamboman/mason-lspconfig.nvim')
+	use ('L3MON4D3/LuaSnip')
 
 
 	use {
@@ -47,5 +37,5 @@ return require('packer').startup(function(use)
 		end,
 		requires = { "kyazdani42/nvim-web-devicons", opt = true }
 	})
-
+ 
 end) 

@@ -2,7 +2,7 @@ require("toggleterm").setup{
 	size = 10,               
 	open_mapping = [[<C-j>]], 
 	direction = "horizontal",
-	start_in_insert = true,  
+	start_in_insert = false,  
 	persist_size = true,    
 	close_on_exit = true, 
 	shade_terminals = true, 
