@@ -7,15 +7,8 @@ return require('packer').startup(function(use)
 		'nvim-telescope/telescope.nvim', tag = '0.1.8',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
-	use ({
-		"rose-pine/neovim",
-		name = "rose-pine",
-		config = function()
-			vim.cmd("colorscheme rose-pine")
-		end
-	})
-
-  use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+	use "catppuccin/nvim"
+	use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
   use ('theprimeagen/harpoon')
   use ('wakatime/vim-wakatime')
@@ -42,9 +35,17 @@ return require('packer').startup(function(use)
 	}
 
 
-use {
-  'nvim-lualine/lualine.nvim',
-  requires = {'kyazdani42/nvim-web-devicons', opt = true}
-}
+	use {
+		'nvim-lualine/lualine.nvim',
+		requires = {'kyazdani42/nvim-web-devicons', opt = true}
+	}
+
+	use({
+		"NTBBloodbath/galaxyline.nvim",
+		config = function()
+			require("galaxyline.themes.eviline")
+		end,
+		requires = { "kyazdani42/nvim-web-devicons", opt = true }
+	})
 
 end) 

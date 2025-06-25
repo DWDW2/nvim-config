@@ -6,8 +6,6 @@ require("toggleterm").setup{
 	persist_size = true,    
 	close_on_exit = true, 
 	shade_terminals = true, 
-	shading_factor = '<number>', 
-	shading_ratio = '<number>', 
 	insert_mappings = true, 
 	terminal_mappings = true, 
 	persist_mode = true, 
