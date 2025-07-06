@@ -45,7 +45,6 @@ require('lspconfig').gopls.setup({})
 require('lspconfig').ts_ls.setup({})
 require('lspconfig').pyright.setup({}) 
 
-
 local cmp = require('cmp')
 local luasnip_ok, luasnip = pcall(require, 'luasnip')
 if not luasnip_ok then

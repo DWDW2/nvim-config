@@ -13,7 +13,17 @@ vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
 vim.opt.formatoptions:append({'r'})
 vim.opt.clipboard = "unnamedplus"
-
-
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99 
+vim.api.nvim_create_autocmd({"BufReadPost", "BufNewFile"}, {
+  pattern = "*",
+  callback = function()
+    vim.opt.foldmethod = "expr"
+    vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+    vim.opt.foldlevel = 99
+  end,
+})
+vim.api.nvim_set_hl(0, "@text.regex.go", { link = "String" })
 require("zhansar")
 
